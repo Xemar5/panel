@@ -14,10 +14,25 @@ using UnityEngine;
 
 public partial class Puzzle
 {
-    [PropertySpace, PropertyOrder(ConditionsOrder + 2), NonSerialized, HideLabel, ShowInInspector, ShowIf(nameof(IsConditionToolActive)), ValueDropdown(nameof(ConditionOfTypeCount)), OnValueChanged(nameof(SetConditionData)), DisableIf(nameof(IsDataNull))]
+    [TitleGroup("Conditions", Order = ConditionsOrder + 2)]
+    [PropertyOrder(2)]
+    [PropertySpace]
+    [NonSerialized]
+    [HideLabel]
+    [ShowInInspector]
+    [ShowIf(nameof(IsConditionToolActive))]
+    [ValueDropdown(nameof(ConditionOfTypeCount))]
+    [OnValueChanged(nameof(SetConditionData))]
+    [DisableIf(nameof(IsDataNull))]
     [InfoBox("Select existing condition or add a new one.", InfoMessageType.Warning, VisibleIf = nameof(IsConditionDataNull))]
     private Condition condition = default;
-    [BoxGroup("Conditions/Conditions", false, false, order: ConditionsOrder + 3), NonSerialized, ShowInInspector, InlineEditor(InlineEditorObjectFieldModes.CompletelyHidden), ShowIf(nameof(IsConditionToolActiveAndSelected)), DisableIf(nameof(IsDataNull))]
+
+    [BoxGroup("Conditions/Conditions", false, false, order: ConditionsOrder + 3)]
+    [NonSerialized]
+    [ShowInInspector]
+    [InlineEditor(InlineEditorObjectFieldModes.CompletelyHidden)]
+    [ShowIf(nameof(IsConditionToolActiveAndSelected))]
+    [DisableIf(nameof(IsDataNull))]
     private ConditionData conditionData;
 
     private bool IsConditionDataNull() => conditionData == null;
@@ -28,12 +43,20 @@ public partial class Puzzle
     private bool IsConditionToolDisabled() => IsDataNull() || IsConditionToolActive();
     private string GetConditionToolLabel() => IsConditionToolActive() ? "- Conditions -" : "Conditions";
 
-    [ButtonGroup("Tools/Buttons", -2), PropertyOrder(2), LabelText("$" + nameof(GetConditionToolLabel)), DisableIf(nameof(IsConditionToolDisabled))]
+    [ButtonGroup("Tools/Buttons", -2)]
+    [PropertyOrder(2)]
+    [LabelText("$" + nameof(GetConditionToolLabel))]
+    [DisableIf(nameof(IsConditionToolDisabled))]
     private void SetEditorConditions() => ToolManager.SetActiveTool<ConditionEditor>();
 
 
 
-    [PropertyOrder(ConditionsOrder + 1), Button, ShowIf(nameof(IsConditionToolActive)), DisableIf(nameof(IsDataNull)), LabelText("New Condition")]
+    [TitleGroup("Conditions")]
+    [PropertyOrder(1)]
+    [Button]
+    [ShowIf(nameof(IsConditionToolActive))]
+    [DisableIf(nameof(IsDataNull))]
+    [LabelText("New Condition")]
     private void AddCondition()
     {
         ConditionCreationPopup popup = ScriptableObject.CreateInstance<ConditionCreationPopup>();
@@ -67,7 +90,10 @@ public partial class Puzzle
         SetConditionData(condition);
     }
 
-    [PropertyOrder(ConditionsOrder + 4), Button, ShowIf(nameof(IsConditionToolActiveAndSelected)), GUIColor(1, 0.85f, 0.85f)]
+    [PropertyOrder(ConditionsOrder + 4)]
+    [Button]
+    [ShowIf(nameof(IsConditionToolActiveAndSelected))]
+    [GUIColor(1, 0.85f, 0.85f)]
     private void RemoveSelectedCondition()
     {
         conditionSets.RemoveCondition(condition);
@@ -118,19 +144,23 @@ public partial class Puzzle
 
 
 
-    [EditorTool("Occupied Condition Editor")]
+    [EditorTool("Condition Editor")]
     private class ConditionEditor : EditorTool
     {
         public abstract class Specialization
         {
             protected Puzzle Puzzle { get; private set; }
 
-            public bool Run(Puzzle puzzle)
+            public virtual bool Run(Puzzle puzzle)
             {
                 this.Puzzle = puzzle;
-                return Run();
+                if (puzzle == null)
+                {
+                    return false;
+                }
+                return true;
             }
-            protected abstract bool Run();
+            protected abstract void Run();
         }
         public abstract class Specialization<C, D> : Specialization
             where C : Condition
@@ -139,12 +169,17 @@ public partial class Puzzle
             protected C Condition { get; private set; }
             protected D ConditionData { get; private set; }
 
-            protected override bool Run()
+            public override bool Run(Puzzle puzzle)
             {
+                if (base.Run(puzzle) == false)
+                {
+                    return false;
+                }
                 if (Puzzle.condition is C condition)
                 {
                     this.Condition = condition;
                     this.ConditionData = (D)condition.Data;
+                    Run();
                     return true;
                 }
                 else
@@ -153,7 +188,6 @@ public partial class Puzzle
                     this.ConditionData = null;
                     return false;
                 }
-
             }
         }
 
@@ -180,6 +214,8 @@ public partial class Puzzle
                 return;
             }
 
+            HandleInput(Event.current);
+
             if (puzzle.condition == null)
             {
                 return;
@@ -192,6 +228,14 @@ public partial class Puzzle
                     activeSpecialization = specialization;
                     return;
                 }
+            }
+        }
+
+        private void HandleInput(Event evnt)
+        {
+            if (evnt.type == EventType.Layout)
+            {
+                HandleUtility.AddDefaultControl(0);
             }
         }
 

@@ -38,9 +38,6 @@ public class InteractablePiece : Piece, IBeginDragHandler, IEndDragHandler, IDra
 
     public int GetClosestDirectionIndex(Vector3 delta, float maxAngle)
     {
-        int closestDirectionIndex = -1;
-        float closestAngle = 180;
-
         InteractablePieceData data = Data as InteractablePieceData;
 
         int length = data.occupiedSpaceIndices.Length;
@@ -50,18 +47,7 @@ public class InteractablePiece : Piece, IBeginDragHandler, IEndDragHandler, IDra
         }
 
         SpacePiece occupiedSpace = Master.Spaces[data.occupiedSpaceIndices[0]];
-
-        for (int i = 0; i < occupiedSpace.Connections.Length; i++)
-        {
-            float angle = Vector3.Angle(occupiedSpace.Connections[i].localPosition, delta);
-
-            if (angle < closestAngle && angle < maxAngle)
-            {
-                closestAngle = angle;
-                closestDirectionIndex = i;
-            }
-        }
-
+        int closestDirectionIndex = occupiedSpace.GetClosestDirectionIndex(delta, maxAngle);
         return closestDirectionIndex;
     }
 

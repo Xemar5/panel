@@ -20,7 +20,6 @@ public abstract class Piece : MonoBehaviour
     {
         get
         {
-#if UNITY_EDITOR
             if (!Application.isPlaying)
             {
                 return data;
@@ -30,9 +29,6 @@ public abstract class Piece : MonoBehaviour
                 runtimeData = Instantiate(data);
             }
             return runtimeData;
-#else
-            return data;
-#endif
         }
     }
 

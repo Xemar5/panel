@@ -20,6 +20,12 @@ public class PanelStand : MonoBehaviour
     [SerializeField]
     private Highlightable[] highlightables = default;
 
+    [Space]
+    [SerializeField]
+    private GameObject completionLight = default;
+    [SerializeField]
+    private Puzzle puzzle = default;
+
     private HashSet<PanelCaster> castersInZone = new HashSet<PanelCaster>();
     private HashSet<PanelCaster> castersLooking = new HashSet<PanelCaster>();
     private HashSet<PanelCaster> castersActive = new HashSet<PanelCaster>();
@@ -38,6 +44,9 @@ public class PanelStand : MonoBehaviour
         {
             castable.Initialize(this);
         }
+        puzzle.OnPuzzleCompleted += (x, i) => completionLight.SetActive(true);
+        puzzle.OnPuzzleBroken += (x) => completionLight.SetActive(false);
+        completionLight.SetActive(false);
     }
 
     public bool IsCasterActive(PanelCaster caster) => castersActive.Contains(caster);

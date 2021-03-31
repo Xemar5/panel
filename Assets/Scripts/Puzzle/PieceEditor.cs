@@ -262,7 +262,7 @@ public partial class Puzzle
 
         private void RaycastMouse(Puzzle puzzle)
         {
-            Plane plane = new Plane(puzzle.transform.forward, puzzle.transform.position);
+            Plane plane = new Plane(puzzle.transform.up, puzzle.transform.position);
             Ray ray = HandleUtility.GUIPointToWorldRay(mousePosition);
             if (plane.Raycast(ray, out float enter))
             {
@@ -470,21 +470,27 @@ public partial class Puzzle
             piece.transform.localRotation = puzzle.piecePrefabRotation;
             InteractablePieceData data = (InteractablePieceData)piece.CreateData();
             MovableModifier movable = CreateInstance<MovableModifier>();
-            movable.name = $"{piece.name} - MovableModifier";
+            ColoredModifier colored = CreateInstance<ColoredModifier>();
+            movable.name = $"{piece.name} - {typeof(MovableModifier).Name}";
+            colored.name = $"{piece.name} - {typeof(ColoredModifier).Name}";
             data.name = piece.name;
             piece.Save(data);
             piece.SetData(data);
             data.modifiers.Add(movable);
+            data.modifiers.Add(colored);
             piece.Data.pieceIndex = puzzle.pieces.Count;
             puzzle.data.Pieces.Add(data);
             puzzle.pieces.Add(piece);
             puzzle.piece = piece;
+            puzzle.modifier = null;
             puzzle.SetPieceData(piece);
             data.OnPieceMoved(piece, puzzle);
             AssetDatabase.AddObjectToAsset(data, puzzle.data);
             AssetDatabase.AddObjectToAsset(movable, data);
+            AssetDatabase.AddObjectToAsset(colored, data);
             EditorUtility.SetDirty(data);
             EditorUtility.SetDirty(movable);
+            EditorUtility.SetDirty(colored);
             EditorUtility.SetDirty(piece);
             EditorUtility.SetDirty(puzzle);
             EditorUtility.SetDirty(puzzle.Data);

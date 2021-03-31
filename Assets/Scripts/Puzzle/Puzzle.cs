@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ConditionGroups;
 using System.Collections;
+using System;
 #if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
@@ -17,6 +18,9 @@ public partial class Puzzle : MonoBehaviour
     private const float PiecesOrder = 4000f;
     private const float ModifiersOrder = 5000f;
     private const float ConditionsOrder = 6000f;
+
+    public event Action<Puzzle, int> OnPuzzleCompleted;
+    public event Action<Puzzle> OnPuzzleBroken;
 
     [TitleGroup("Settings")]
     [PropertyOrder(SettingsOrder)]
@@ -55,9 +59,9 @@ public partial class Puzzle : MonoBehaviour
     private List<InteractablePiece> pieces = default;
 
     [TitleGroup("Conditions")]
-    [FoldoutGroup("Conditions/Condition Set")]
+    [FoldoutGroup("Conditions/Condition Set", 0)]
 	[HideLabel]
-    [PropertyOrder(ConditionsOrder)]
+    [PropertyOrder(0)]
     [SerializeField]
 	[ReadOnly]
 	[ShowIf(nameof(IsConditionToolActive))]
@@ -92,12 +96,19 @@ public partial class Puzzle : MonoBehaviour
 
     public void RegisterMove(Piece sender)
     {
+        bool isAnyGroupSatisfied = false;
         for (int i = 0; i < conditionSets.ConditionGroups.Count; i++)
         {
             if (conditionSets.IsGroupSatisfied(i))
             {
                 Debug.Log($"Condition group {i} in puzzle {name} completed.");
+                isAnyGroupSatisfied = true;
+                OnPuzzleCompleted?.Invoke(this, i);
             }
+        }
+        if (!isAnyGroupSatisfied)
+        {
+            OnPuzzleBroken?.Invoke(this);
         }
     }
 

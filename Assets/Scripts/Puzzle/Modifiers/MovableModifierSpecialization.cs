@@ -12,10 +12,8 @@ public partial class Puzzle
     private class MovableModifierSpecialization : ModifierEditor.Specialization<MovableModifier>
     {
 
-        protected override bool Run()
+        protected override void Run()
         {
-            if (base.Run() == false) return false;
-
             float size = 0.1f;
             int spaceIndex = PieceData.occupiedSpaceIndices[0];
             Quaternion puzzleRotation = Puzzle.transform.rotation;
@@ -39,8 +37,6 @@ public partial class Puzzle
                     }
                 }
             }
-
-            return true;
         }
 
     }

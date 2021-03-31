@@ -31,16 +31,16 @@ public partial class Puzzle
                 if (puzzle.condition == null) return;
                 colored = puzzle.condition.Data as IColored;
             }
-            else if (IsPieceToolActive())
+            else if (IsModifierToolActive())
             {
-                if (puzzle.piece == null) return;
-                colored = puzzle.piece.Data as IColored;
+                if (puzzle.modifier == null) return;
+                colored = puzzle.modifier as IColored;
             }
             if (colored != null)
             {
                 Color color = this.color;
                 int index = FindColorIndexInPalette(puzzle, color);
-                colored.colorIndex = index;
+                colored.ColorIndex = index;
             }
         }
         private string SetColorLabel()
@@ -52,18 +52,18 @@ public partial class Puzzle
                 if (puzzle.condition == null) return "";
                 if (puzzle.condition.Data is IColored colored)
                 {
-                    if (colored.colorIndex == FindColorIndexInPalette(puzzle, color))
+                    if (colored.ColorIndex == FindColorIndexInPalette(puzzle, color))
                         return "Current Color";
                     else
                         return "Set Color";
                 }
             }
-            else if (IsPieceToolActive())
+            else if (IsModifierToolActive())
             {
-                if (puzzle.piece == null) return "";
-                if (puzzle.piece.Data is IColored colored)
+                if (puzzle.modifier == null) return "";
+                if (puzzle.modifier is IColored colored)
                 {
-                    if (colored.colorIndex == FindColorIndexInPalette(puzzle, color))
+                    if (colored.ColorIndex == FindColorIndexInPalette(puzzle, color))
                         return "Current Color";
                     else
                         return "Set Color";
@@ -92,15 +92,15 @@ public partial class Puzzle
                 if (puzzle.condition == null) return true;
                 if (puzzle.condition.Data is IColored colored)
                 {
-                    return colored.colorIndex == FindColorIndexInPalette(puzzle, color);
+                    return colored.ColorIndex == FindColorIndexInPalette(puzzle, color);
                 }
             }
-            else if (IsPieceToolActive())
+            else if (IsModifierToolActive())
             {
-                if (puzzle.piece == null) return true;
-                if (puzzle.piece.Data is IColored colored)
+                if (puzzle.modifier == null) return true;
+                if (puzzle.modifier is IColored colored)
                 {
-                    return colored.colorIndex == FindColorIndexInPalette(puzzle, color);
+                    return colored.ColorIndex == FindColorIndexInPalette(puzzle, color);
                 }
             }
             return true;

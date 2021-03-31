@@ -45,6 +45,7 @@ public partial class Puzzle
     private void SetModifierTool() => ToolManager.SetActiveTool<ModifierEditor>();
     private bool IsModifierSelected() => modifier != null;
     private bool IsModifierToolActiveAndSelected() => IsModifierToolActive() && IsModifierSelected();
+    private bool IsAddModifierEnabled() => IsModifierToolActive() && IsPieceSelected();
     private bool IsModifierToolDisabled() => IsDataNull() || IsModifierToolActive();
     private string GetModifiersToolLabel() => IsModifierToolActive() ? "- Modifiers -" : "Modifiers";
     private string GetModifiersToolInfoBoxMessage() => IsPieceSelected() ? "Select an existing modifier or add a new one." : "Select an existing piece first.";
@@ -53,7 +54,7 @@ public partial class Puzzle
     [TitleGroup("Modifiers")]
     [PropertyOrder(ModifiersOrder + 1)]
     [Button]
-    [ShowIf(nameof(IsPieceToolOrDerivedActiveAndSelected))]
+    [ShowIf(nameof(IsAddModifierEnabled))]
     private void AddModifier()
     {
         ModifierCreationPopup popup = ScriptableObject.CreateInstance<ModifierCreationPopup>();
@@ -115,7 +116,7 @@ public partial class Puzzle
             protected InteractablePiece Piece { get; private set; }
             protected InteractablePieceData PieceData { get; private set; }
 
-            public bool Run(Puzzle puzzle)
+            public virtual bool Run(Puzzle puzzle)
             {
                 this.Puzzle = puzzle;
                 if (puzzle == null)
@@ -132,17 +133,18 @@ public partial class Puzzle
                 {
                     return false;
                 }
-                return Run();
+                return true;
             }
-            protected abstract bool Run();
+            protected abstract void Run();
         }
         public abstract class Specialization<M> : Specialization
             where M : Modifier
         {
             protected M Modifier { get; private set; }
 
-            protected override bool Run()
+            public override sealed bool Run(Puzzle puzzle)
             {
+                if (base.Run(puzzle) == false) return false;
                 if (Puzzle.modifier == null)
                 {
                     return false;
@@ -150,13 +152,13 @@ public partial class Puzzle
                 if (Puzzle.modifier is M modifier)
                 {
                     this.Modifier = modifier;
+                    Run();
                     return true;
                 }
                 else
                 {
                     return false;
                 }
-
             }
         }
 

@@ -13,6 +13,36 @@ public class OccupiedCondition : Condition
 
     public override string ConditionId => "Occupied";
 
+    public override void Initialize(Puzzle master)
+    {
+        base.Initialize(master);
+        OccupiedConditionData data = Data as OccupiedConditionData;
+        Color color;
+        if (data.colorIndex < 0 || data.colorIndex >= master.Palette.Count)
+        {
+            color = Color.magenta;
+        }
+        else
+        {
+            color = master.Palette[data.colorIndex].color;
+        }
+        color.r = Mathf.Lerp(color.r, 1, 0.7f);
+        color.g = Mathf.Lerp(color.g, 1, 0.7f);
+        color.b = Mathf.Lerp(color.b, 1, 0.7f);
+
+        for (int j = 0; j < data.spaceIndices.Count; j++)
+        {
+            Renderer[] renderers = master.Spaces[data.spaceIndices[j]].GetComponentsInChildren<Renderer>();
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                Renderer renderer = renderers[i];
+                renderer.material.color = color;
+            }
+
+        }
+
+    }
+
     public override bool IsSatisfied()
     {
         OccupiedConditionData data = Data as OccupiedConditionData;

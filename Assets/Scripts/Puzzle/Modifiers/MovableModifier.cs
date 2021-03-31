@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +10,11 @@ using UnityEngine.EventSystems;
 public class MovableModifier : Modifier
 {
     public float minDrag = 5;
-    public List<int> directionIndexConstraints = default;
+    [ReadOnly, HideInInlineEditors]
+    public List<int> directionIndexConstraints = new List<int>();
 
     private int closestDirectionIndex = -1;
-    private Vector2 dragDistance;
+    private Vector3 dragDistance;
 
 
     public override void Initialize(InteractablePiece owner)
@@ -24,11 +26,12 @@ public class MovableModifier : Modifier
 
     private void OnDragStart(InteractablePiece owner, PointerEventData eventData)
     {
-        dragDistance = Vector2.zero;
+        dragDistance = Vector3.zero;
     }
     private void OnDragContinue(InteractablePiece owner, PointerEventData eventData)
     {
-        dragDistance += eventData.delta;
+        Vector3 drag = CameraManager.Instance.Camera.transform.TransformDirection(eventData.delta);
+        dragDistance += drag;
         if (dragDistance.sqrMagnitude < minDrag * minDrag)
         {
             this.closestDirectionIndex = -1;

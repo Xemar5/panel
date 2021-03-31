@@ -15,15 +15,14 @@ public partial class Puzzle
 
     private class OccupiedConditionSpecialization : ConditionEditor.Specialization<OccupiedCondition, OccupiedConditionData>
     {
-        protected override bool Run()
+        protected override void Run()
         {
-            if (base.Run() == false) return false;
             if (Puzzle.spaces.Count == 0)
             {
                 GUIStyle style = new GUIStyle();
                 style.normal.textColor = Color.red;
                 Handles.Label(Puzzle.transform.position, "No available spaces", style);
-                return false;
+                return;
             }
             if (ConditionData.spaceIndices == null)
             {
@@ -33,7 +32,6 @@ public partial class Puzzle
 
             ConditionAdd();
             ConditionRemove();
-            return true;
         }
         private void ConditionAdd()
         {

@@ -2,16 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OccupiedConditionData : ConditionData, ISpaceReferencer
+public class OccupiedConditionData : ConditionData, ISpaceReferencer, IColored
 {
-    [ReadOnly, HideInInlineEditors]
+    [ReadOnly]
+    [HideInInlineEditors]
     public List<int> spaceIndices = default;
-    [ReadOnly, HideInInlineEditors]
+    [ReadOnly]
+    [HideInInlineEditors]
     public int colorIndex = 0;
 
+    [ShowInInspector]
+    [HideLabel]
+    [PropertyRange(0, nameof(ColorIndexMax))]
+    [InfoBox("Color index out of range.", VisibleIf = nameof(IsInvalidColor))]
+    public int ColorIndex
+    {
+        get => colorIndex;
+        set => colorIndex = value;
+    }
 
 #if UNITY_EDITOR
-    [ShowInInspector, HideLabel, InfoBox("Color can be set in Puzzle's palette by clicking on the Set Condition Color button.", VisibleIf = nameof(IsInvalidColor))]
+
+    [ShowInInspector]
+    [HideLabel]
     private Color Color
     {
         get
@@ -30,6 +43,16 @@ public class OccupiedConditionData : ConditionData, ISpaceReferencer
             Puzzle puzzle = Puzzle.GetSelectedPuzzle();
             if (puzzle == null) return true;
             return colorIndex < 0 || colorIndex >= puzzle.Palette.Count;
+        }
+    }
+
+    private float ColorIndexMax
+    {
+        get
+        {
+            Puzzle puzzle = Puzzle.GetSelectedPuzzle();
+            if (puzzle == null) return 0;
+            return puzzle.Palette.Count - 1;
         }
     }
 

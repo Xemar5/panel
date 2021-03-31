@@ -36,9 +36,32 @@ public class SpacePiece : Piece
         }
     }
 
+    public Vector3 GetDirectionLocalToSelf(int directionIndex) => connections[directionIndex].localPosition;
+    public Vector3 GetDirectionLocalToPuzzle(int directionIndex) => transform.localRotation * connections[directionIndex].localPosition;
+
     public Vector3 GetDirectionPositionLocalToPuzzle(int directionIndex)
     {
         return transform.localPosition + transform.localRotation * Vector3.Scale(transform.localScale, connections[directionIndex].localPosition);
+    }
+
+    public int GetClosestDirectionIndex(Vector3 delta, float maxAngle)
+    {
+        int closestDirectionIndex = -1;
+        float closestAngle = 180;
+        Quaternion localRotation = this.transform.localRotation;
+
+        for (int i = 0; i < this.Connections.Length; i++)
+        {
+            float angle = Vector3.Angle(localRotation * this.Connections[i].localPosition, delta);
+
+            if (angle < closestAngle && angle < maxAngle)
+            {
+                closestAngle = angle;
+                closestDirectionIndex = i;
+            }
+        }
+
+        return closestDirectionIndex;
     }
 
 #if UNITY_EDITOR
