@@ -16,7 +16,7 @@ public class DominoModifier : Modifier
 
         [ReadOnly]
         [HideInInlineEditors]
-        public int spaceDirectionIndex;
+        public Vector3 spaceDirection;
 
         [LabelText("$"+nameof(ValueLabel))]
         public int value;
@@ -26,7 +26,7 @@ public class DominoModifier : Modifier
         {
             get
             {
-                return $"[{occupiedSpaceIndex}:{spaceDirectionIndex}] Value";
+                return $"[{occupiedSpaceIndex}:{spaceDirection}] Value";
             }
         }
 #endif

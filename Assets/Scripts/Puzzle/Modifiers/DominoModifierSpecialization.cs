@@ -23,7 +23,8 @@ public partial class Puzzle
                     {
                         continue;
                     }
-                    int socketIndex = Modifier.sockets.FindIndex(x => x.occupiedSpaceIndex == i && x.spaceDirectionIndex == j);
+                    int socketIndex = Modifier.sockets.FindIndex(x => x.occupiedSpaceIndex == i &&
+                        Vector3.Angle(x.spaceDirection, Quaternion.Inverse(Piece.transform.localRotation) * space.GetDirectionLocalToSelf(j)) < 1f);
                     Handles.color = socketIndex == -1 ? Color.green : Color.red;
                     if (Handles.Button((space.transform.position + space.Connections[j].transform.position) / 2, Puzzle.transform.rotation, size, size, Handles.SphereHandleCap))
                     {
@@ -32,7 +33,7 @@ public partial class Puzzle
                             Modifier.sockets.Add(new DominoModifier.Socket()
                             {
                                 occupiedSpaceIndex = i,
-                                spaceDirectionIndex = j
+                                spaceDirection = Quaternion.Inverse(Piece.transform.localRotation) * space.GetDirectionLocalToSelf(j)
                             });
                             EditorUtility.SetDirty(Modifier);
                             EditorUtility.SetDirty(Puzzle);

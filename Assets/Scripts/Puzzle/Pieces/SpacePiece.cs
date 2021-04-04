@@ -12,10 +12,13 @@ public class SpacePiece : Piece
     private float smallestDistanceEpsilon = 0.5f;
     [SerializeField]
     private Transform[] connections = default;
+    [SerializeField]
+    private Transform[] corners = default;
 
     private HashSet<InteractablePiece> occupyingPieces = new HashSet<InteractablePiece>();
 
     public Transform[] Connections => connections;
+    public Transform[] Corners => corners;
 
     public override PieceData CreateData() => PieceData.CreateInstance<SpacePieceData>();
 
@@ -36,6 +39,8 @@ public class SpacePiece : Piece
         }
     }
 
+    public Vector3 GetCornerLocalToSelf(int cornerIndex) => corners[cornerIndex].localPosition;
+    public Vector3 GetCornerLocalToPuzzle(int cornerIndex) => transform.localPosition + transform.localRotation * Vector3.Scale(transform.localScale, corners[cornerIndex].localPosition);
     public Vector3 GetDirectionLocalToSelf(int directionIndex) => connections[directionIndex].localPosition;
     public Vector3 GetDirectionLocalToPuzzle(int directionIndex) => transform.localRotation * connections[directionIndex].localPosition;
 

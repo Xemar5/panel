@@ -9,16 +9,20 @@ using UnityEngine.EventSystems;
 
 public class MovableModifier : Modifier
 {
+    public event Action<MovableModifier, int> OnActionRegistered;
+
     public float minDrag = 5;
     [ReadOnly, HideInInlineEditors]
     public List<int> directionIndexConstraints = new List<int>();
 
     private int closestDirectionIndex = -1;
     private Vector3 dragDistance;
+    private InteractablePiece owner;
 
 
     public override void Initialize(InteractablePiece owner)
     {
+        this.owner = owner;
         owner.OnDragStart += OnDragStart;
         owner.OnDragContinue += OnDragContinue;
         owner.OnDragEnd += OnDragEnd;
@@ -64,9 +68,13 @@ public class MovableModifier : Modifier
     {
         if (closestDirectionIndex != -1)
         {
-            Debug.Log($"released at: {closestDirectionIndex}");
-            TryMove(owner, closestDirectionIndex);
-            closestDirectionIndex = -1;
+            Debug.Log($"released at: {this.closestDirectionIndex}");
+            int closestDirectionIndex = this.closestDirectionIndex;
+            this.closestDirectionIndex = -1;
+            if (TryMove(closestDirectionIndex))
+            {
+                OnActionRegistered?.Invoke(this, closestDirectionIndex);
+            }
         }
         else
         {
@@ -74,7 +82,7 @@ public class MovableModifier : Modifier
         }
     }
 
-    private void TryMove(InteractablePiece owner, int directionIndex)
+    public bool TryMove(int directionIndex)
     {
         InteractablePieceData data = owner.Data as InteractablePieceData;
         int length = data.occupiedSpaceIndices.Length;
@@ -87,7 +95,7 @@ public class MovableModifier : Modifier
             if (neighbourIndex == -1)
             {
                 Debug.Log($"Move unavailable: No available space at adjacent to {data.occupiedSpaceIndices[i]} in direction at index {directionIndex}.");
-                return;
+                return false;
             }
 
             SpacePiece neighbour = owner.Master.Spaces[neighbourIndex];
@@ -105,7 +113,7 @@ public class MovableModifier : Modifier
                 if (!isOccupiedByOwner)
                 {
                     Debug.Log($"Move unavailable: Space at adjacent to {data.occupiedSpaceIndices[i]} in direction at index {directionIndex} is already occupied.");
-                    return;
+                    return false;
                 }
             }
 
@@ -125,6 +133,7 @@ public class MovableModifier : Modifier
         Debug.Log($"Movable piece {name} moved (pieces spaces: {spacesToMove.Length})");
 
         owner.Master.RegisterMove(owner);
+        return true;
     }
 
 }

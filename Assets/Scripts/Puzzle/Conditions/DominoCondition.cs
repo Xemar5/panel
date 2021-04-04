@@ -12,11 +12,8 @@ public class DominoCondition : Condition
         public InteractablePiece piece;
         public InteractablePieceData pieceData;
         public DominoModifier.Socket socket;
-        public DominoNode node;
+        public DominoModifierNode node;
     }
-
-    [SerializeField]
-    private DominoNode nodePrefab = default;
 
     private Dictionary<int, Dictionary<InteractablePiece, Model>> dominos = new Dictionary<int, Dictionary<InteractablePiece, Model>>();
 
@@ -43,7 +40,7 @@ public class DominoCondition : Condition
                             dominos.Add(socket.value, modifiers);
                         }
 
-                        DominoNode node = Instantiate(nodePrefab, piece.transform, false);
+                        DominoModifierNode node = Instantiate(ModifierComponents.Instance.dominoModifierNodePrefab, piece.transform, false);
                         node.Initialize(this, data, socket);
 
                         Model model = new Model()
@@ -73,7 +70,9 @@ public class DominoCondition : Condition
                     DominoModifier.Socket socket = model.socket;
                     SpacePiece space = Master.Spaces[model.pieceData.occupiedSpaceIndices[socket.occupiedSpaceIndex]];
                     SpacePieceData spaceData = space.Data as SpacePieceData;
-                    int adjacentSpaceIndex = spaceData.adjacentSpaceIndices[socket.spaceDirectionIndex];
+                    Vector3 direction = piece.transform.localRotation * socket.spaceDirection;
+                    int spaceDirectionIndex = space.GetClosestDirectionIndex(direction, 90);
+                    int adjacentSpaceIndex = spaceData.adjacentSpaceIndices[spaceDirectionIndex];
                     if (adjacentSpaceIndex == -1)
                     {
                         /// This socket is at the edge of the puzzle.
@@ -87,9 +86,7 @@ public class DominoCondition : Condition
                         return false;
                     }
 
-                    Vector3 socketDirection = space.GetDirectionLocalToPuzzle(socket.spaceDirectionIndex);
-                    int adjacentSocketDirectionIndex = adjacentSpace.GetClosestDirectionIndex(-socketDirection, 90);
-                    bool dominoMatched = IsDominoMatched(valueDominos, piece, adjacentSpace, adjacentSocketDirectionIndex);
+                    bool dominoMatched = IsDominoMatched(valueDominos, piece, adjacentSpace, -direction);
                     if (!dominoMatched)
                     {
                         /// Currently checked domino socket is not matched.
@@ -101,7 +98,7 @@ public class DominoCondition : Condition
         return true;
     }
 
-    private bool IsDominoMatched(Dictionary<InteractablePiece, Model> valueDominos, InteractablePiece piece, SpacePiece adjacentSpace, int adjacentSocketDirectionIndex)
+    private bool IsDominoMatched(Dictionary<InteractablePiece, Model> valueDominos, InteractablePiece piece, SpacePiece adjacentSpace, Vector3 socketDirection)
     {
         foreach ((InteractablePiece otherPiece, Model otherModel) in valueDominos)
         {
@@ -113,7 +110,7 @@ public class DominoCondition : Condition
             {
                 continue;
             }
-            if (otherModel.socket.spaceDirectionIndex != adjacentSocketDirectionIndex)
+            if (Vector3.Angle(otherPiece.transform.localRotation * otherModel.socket.spaceDirection, socketDirection) > 1f)
             {
                 continue;
             }

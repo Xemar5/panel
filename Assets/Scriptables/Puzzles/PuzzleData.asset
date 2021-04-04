@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8589909743258799470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4908fd223a54df48b03015d2b6e3761, type: 3}
+  m_Name: Movable.L - MovableModifier
+  m_EditorClassIdentifier: 
+  minDrag: 5
+  directionIndexConstraints: 
 --- !u!114 &-7822128196914463753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,13 +27,14 @@ MonoBehaviour:
   m_Name: Movable.1x1
   m_EditorClassIdentifier: 
   pieceIdentifier: Simple/1x1
-  pieceIndex: 1
+  pieceIndex: 0
   localPosition: {x: -1, y: 0, z: 0}
   localRotation: {x: 0, y: 0, z: 0, w: 1}
   modifiers:
   - {fileID: 3757187317683966345}
   - {fileID: 18470481281871742}
   - {fileID: 4024171782790733102}
+  - {fileID: 2928134780147572471}
   occupiedSpaceIndices: 05000000
 --- !u!114 &-7723291039991228606
 MonoBehaviour:
@@ -55,20 +70,6 @@ MonoBehaviour:
   localPosition: {x: 0, y: 0, z: -1}
   localRotation: {x: 0, y: 0, z: 0, w: 1}
   adjacentSpaceIndices: ffffffff0700000000000000ffffffff
---- !u!114 &-7417763697694283356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4908fd223a54df48b03015d2b6e3761, type: 3}
-  m_Name: Movable.L - MovableModifier
-  m_EditorClassIdentifier: 
-  minDrag: 5
-  directionIndexConstraints: 
 --- !u!114 &-6174831346764565112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +121,22 @@ MonoBehaviour:
   localPosition: {x: 1, y: 0, z: 1}
   localRotation: {x: 0, y: 0, z: 0, w: 1}
   adjacentSpaceIndices: 01000000ffffffffffffffff03000000
+--- !u!114 &-2486775689817542962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65ddf149093a9f14091721c89e4cd47c, type: 3}
+  m_Name: Movable.L - RotatableModifier
+  m_EditorClassIdentifier: 
+  offset: {x: 0.49999997, y: 0, z: 0.50000006}
+  isClockwise: 1
+  colorIndex: 1
+  rotationStep: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
 --- !u!114 &-2204154836900855346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,27 +154,6 @@ MonoBehaviour:
   localPosition: {x: 0, y: 0, z: 0}
   localRotation: {x: 0, y: 0, z: 0, w: 1}
   adjacentSpaceIndices: 05000000030000000100000006000000
---- !u!114 &-1496030394654830249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5d65fe4d70f6964097092815949bbd0, type: 3}
-  m_Name: Movable.L
-  m_EditorClassIdentifier: 
-  pieceIdentifier: Simple/L
-  pieceIndex: 0
-  localPosition: {x: 0, y: 0, z: 0}
-  localRotation: {x: 0, y: 0, z: 0, w: 1}
-  modifiers:
-  - {fileID: -7417763697694283356}
-  - {fileID: 6275292679193419177}
-  - {fileID: 2129187737910605648}
-  occupiedSpaceIndices: 000000000100000003000000
 --- !u!114 &-42251965750269800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,8 +195,8 @@ MonoBehaviour:
   - {fileID: -7589633597673095419}
   - {fileID: -5788174048409451384}
   pieces:
-  - {fileID: -1496030394654830249}
   - {fileID: -7822128196914463753}
+  - {fileID: 2214241901384760160}
   conditionGroups:
   - conditionDatas:
     - {fileID: 4128933479957871467}
@@ -220,7 +216,58 @@ MonoBehaviour:
   m_Name: Movable.1x1 - ColoredModifier
   m_EditorClassIdentifier: 
   colorIndex: 0
---- !u!114 &2129187737910605648
+--- !u!114 &2214241901384760160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d65fe4d70f6964097092815949bbd0, type: 3}
+  m_Name: Movable.L
+  m_EditorClassIdentifier: 
+  pieceIdentifier: Simple/L
+  pieceIndex: 1
+  localPosition: {x: 0, y: 0, z: 1}
+  localRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  modifiers:
+  - {fileID: -8589909743258799470}
+  - {fileID: 2649689401307302858}
+  - {fileID: 3269866636249655333}
+  - {fileID: -2486775689817542962}
+  occupiedSpaceIndices: 010000000000000004000000
+--- !u!114 &2649689401307302858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0b5d784ac85fb45a510c92c5fbec8b, type: 3}
+  m_Name: Movable.L - ColoredModifier
+  m_EditorClassIdentifier: 
+  colorIndex: 0
+--- !u!114 &2928134780147572471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65ddf149093a9f14091721c89e4cd47c, type: 3}
+  m_Name: Movable.1x1 - RotatableModifier
+  m_EditorClassIdentifier: 
+  offset: {x: 0.5, y: 0, z: -0.5}
+  isClockwise: 1
+  colorIndex: 1
+  rotationStep: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+--- !u!114 &3269866636249655333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sockets:
   - occupiedSpaceIndex: 0
-    spaceDirectionIndex: 3
+    spaceDirection: {x: 0.00000008742278, y: 0, z: -1}
     value: 1
 --- !u!114 &3757187317683966345
 MonoBehaviour:
@@ -264,7 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sockets:
   - occupiedSpaceIndex: 0
-    spaceDirectionIndex: 2
+    spaceDirection: {x: 1, y: 0, z: 0}
     value: 1
 --- !u!114 &4128933479957871467
 MonoBehaviour:
@@ -281,19 +328,6 @@ MonoBehaviour:
   conditionIdentifier: Domino
   conditionIndex: 0
   values: 01000000
---- !u!114 &6275292679193419177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0b5d784ac85fb45a510c92c5fbec8b, type: 3}
-  m_Name: Movable.L - ColoredModifier
-  m_EditorClassIdentifier: 
-  colorIndex: 0
 --- !u!114 &7856212250982902536
 MonoBehaviour:
   m_ObjectHideFlags: 0

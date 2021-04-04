@@ -36,6 +36,7 @@ MonoBehaviour:
   modifiers:
   - {fileID: 330455553001968066}
   - {fileID: -2079347006173738583}
+  - {fileID: 2634008831335903001}
   occupiedSpaceIndices: 030000000000000004000000
 --- !u!114 &-5039543835287313012
 MonoBehaviour:
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conditionIdentifier: Occupied
   conditionIndex: 1
-  spaceIndices: 0200000007000000
+  spaceIndices: 07000000
   colorIndex: 1
 --- !u!114 &-4062233236703719262
 MonoBehaviour:
@@ -104,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conditionIdentifier: Occupied
   conditionIndex: 0
-  spaceIndices: 030000000000000004000000
+  spaceIndices: 0300000001000000
   colorIndex: 0
 --- !u!114 &-3650957993997342342
 MonoBehaviour:
@@ -227,6 +228,7 @@ MonoBehaviour:
   palette:
   - color: {r: 0.40837377, g: 0.6037736, b: 0.3275187, a: 1}
   - color: {r: 0.32831967, g: 0.5321825, b: 0.5849056, a: 1}
+  - color: {r: 0.6849338, g: 0.501335, b: 0.8113208, a: 1}
 --- !u!114 &330455553001968066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +277,22 @@ MonoBehaviour:
   localPosition: {x: -3, y: 0, z: 0}
   localRotation: {x: 0, y: 0, z: 0, w: 1}
   adjacentSpaceIndices: ffffffff09000000ffffffffffffffff
+--- !u!114 &2634008831335903001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65ddf149093a9f14091721c89e4cd47c, type: 3}
+  m_Name: Movable.L - RotatableModifier
+  m_EditorClassIdentifier: 
+  offset: {x: 1, y: 0, z: 0.00000008742278}
+  isClockwise: 1
+  colorIndex: 2
+  rotationStep: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
 --- !u!114 &3475434188014240857
 MonoBehaviour:
   m_ObjectHideFlags: 0
