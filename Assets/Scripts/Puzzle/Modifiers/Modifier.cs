@@ -1,6 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class Modifier : ScriptableObject
 {
-    public virtual void Initialize(InteractablePiece owner) { }
+    public InteractablePiece Owner { get; private set; }
+    public InteractablePieceData OwnerData { get; private set; }
+    public Puzzle Master { get; private set; }
+
+    public void OnInitialize(InteractablePiece owner)
+    {
+        Owner = owner;
+        OwnerData = owner.Data as InteractablePieceData;
+        Master = owner.Master;
+        Initialize();
+    }
+    public void OnRestart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData)
+    {
+        Restart(previousPieceData, restartedPieceData, previousModifierData);
+    }
+
+    protected abstract void Initialize();
+    protected abstract void Restart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData);
 }

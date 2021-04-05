@@ -27,8 +27,20 @@ public class InteractablePiece : Piece, IBeginDragHandler, IEndDragHandler, IDra
         }
         for (int i = 0; i < data.modifiers.Count; i++)
         {
-            data.modifiers[i].Initialize(this);
+            data.modifiers[i].OnInitialize(this);
         }
+    }
+    protected override void Restart(PieceData restarted)
+    {
+        InteractablePieceData previousPieceData = Data as InteractablePieceData;
+        InteractablePieceData restartedPieceData = restarted as InteractablePieceData;
+        for (int i = 0; i < previousPieceData.modifiers.Count; i++)
+        {
+            Modifier restartedModifierData = restartedPieceData.modifiers[i];
+            Modifier currentModifier = previousPieceData.modifiers[i];
+            currentModifier.OnRestart(previousPieceData, restartedPieceData, restartedModifierData);
+        }
+        previousPieceData.occupiedSpaceIndices = restartedPieceData.occupiedSpaceIndices;
     }
 
     public Vector3 GetBodyPositionInPuzzle(int bodyIndex)

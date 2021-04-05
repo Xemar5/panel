@@ -20,6 +20,7 @@ public class SpacePiece : Piece
     public Transform[] Connections => connections;
     public Transform[] Corners => corners;
 
+    protected override void Restart(PieceData restarted) { }
     public override PieceData CreateData() => PieceData.CreateInstance<SpacePieceData>();
 
     public int OccupyCount() => occupyingPieces.Count;
@@ -121,6 +122,7 @@ public class SpacePiece : Piece
         }
         UnityEditor.EditorUtility.SetDirty(data);
     }
+
 #endif
 }
 

@@ -17,15 +17,25 @@ public class MovableModifier : Modifier
 
     private int closestDirectionIndex = -1;
     private Vector3 dragDistance;
-    private InteractablePiece owner;
 
 
-    public override void Initialize(InteractablePiece owner)
+    protected override void Initialize()
     {
-        this.owner = owner;
-        owner.OnDragStart += OnDragStart;
-        owner.OnDragContinue += OnDragContinue;
-        owner.OnDragEnd += OnDragEnd;
+        Owner.OnDragStart += OnDragStart;
+        Owner.OnDragContinue += OnDragContinue;
+        Owner.OnDragEnd += OnDragEnd;
+    }
+    protected override void Restart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData)
+    {
+        int length = previousPieceData.occupiedSpaceIndices.Length;
+        for (int i = 0; i < length; i++)
+        {
+            Owner.Master.Spaces[previousPieceData.occupiedSpaceIndices[i]].Unoccupy(Owner);
+        }
+        for (int i = 0; i < length; i++)
+        {
+            Owner.Master.Spaces[restartedPieceData.occupiedSpaceIndices[i]].Occupy(Owner);
+        }
     }
 
     private void OnDragStart(InteractablePiece owner, PointerEventData eventData)
@@ -84,27 +94,26 @@ public class MovableModifier : Modifier
 
     public bool TryMove(int directionIndex)
     {
-        InteractablePieceData data = owner.Data as InteractablePieceData;
-        int length = data.occupiedSpaceIndices.Length;
+        int length = OwnerData.occupiedSpaceIndices.Length;
         int[] spacesToMove = new int[length];
         for (int i = 0; i < length; i++)
         {
-            SpacePiece space = owner.Master.Spaces[data.occupiedSpaceIndices[i]];
+            SpacePiece space = Owner.Master.Spaces[OwnerData.occupiedSpaceIndices[i]];
             SpacePieceData spaceData = space.Data as SpacePieceData;
             int neighbourIndex = spaceData.adjacentSpaceIndices[directionIndex];
             if (neighbourIndex == -1)
             {
-                Debug.Log($"Move unavailable: No available space at adjacent to {data.occupiedSpaceIndices[i]} in direction at index {directionIndex}.");
+                Debug.Log($"Move unavailable: No available space at adjacent to {OwnerData.occupiedSpaceIndices[i]} in direction at index {directionIndex}.");
                 return false;
             }
 
-            SpacePiece neighbour = owner.Master.Spaces[neighbourIndex];
+            SpacePiece neighbour = Owner.Master.Spaces[neighbourIndex];
             if (neighbour.IsOccupied())
             {
                 bool isOccupiedByOwner = false;
                 foreach (InteractablePiece occupyingPiece in neighbour.OccupyingPieces)
                 {
-                    if (occupyingPiece == owner)
+                    if (occupyingPiece == Owner)
                     {
                         isOccupiedByOwner = true;
                         break;
@@ -112,7 +121,7 @@ public class MovableModifier : Modifier
                 }
                 if (!isOccupiedByOwner)
                 {
-                    Debug.Log($"Move unavailable: Space at adjacent to {data.occupiedSpaceIndices[i]} in direction at index {directionIndex} is already occupied.");
+                    Debug.Log($"Move unavailable: Space at adjacent to {OwnerData.occupiedSpaceIndices[i]} in direction at index {directionIndex} is already occupied.");
                     return false;
                 }
             }
@@ -122,17 +131,17 @@ public class MovableModifier : Modifier
 
         for (int i = 0; i < length; i++)
         {
-            owner.Master.Spaces[data.occupiedSpaceIndices[i]].Unoccupy(owner);
+            Owner.Master.Spaces[OwnerData.occupiedSpaceIndices[i]].Unoccupy(Owner);
         }
         for (int i = 0; i < length; i++)
         {
-            owner.Master.Spaces[spacesToMove[i]].Occupy(owner);
+            Owner.Master.Spaces[spacesToMove[i]].Occupy(Owner);
         }
-        owner.transform.localPosition = owner.Master.Spaces[spacesToMove[0]].transform.localPosition;
-        data.occupiedSpaceIndices = spacesToMove;
+        Owner.transform.localPosition = Owner.Master.Spaces[spacesToMove[0]].transform.localPosition;
+        OwnerData.occupiedSpaceIndices = spacesToMove;
         Debug.Log($"Movable piece {name} moved (pieces spaces: {spacesToMove.Length})");
 
-        owner.Master.RegisterMove(owner);
+        Owner.Master.RegisterMove();
         return true;
     }
 

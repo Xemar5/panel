@@ -23,24 +23,47 @@ namespace Assets.Scripts.Puzzle.Modifiers
         [SerializeField]
         private MirroredModifiers mirroredModifiers = MirroredModifiers.All;
 
+        [NonSerialized]
         private MovableModifier movableModifier;
+        [NonSerialized]
         private RotatableModifier rotatableModifier;
+        [NonSerialized]
         private List<MovableModifier> siblingMovables = new List<MovableModifier>();
+        [NonSerialized]
         private List<RotatableModifier> siblingRotatables = new List<RotatableModifier>();
 
-        public override void Initialize(InteractablePiece owner)
+        protected override void Initialize()
         {
-            base.Initialize(owner);
-            InteractablePieceData data = owner.Data as InteractablePieceData;
-            InitializeMovable(owner, data);
-            InitializeRotatable(owner, data);
-            foreach (InteractablePiece otherPiece in owner.Master.Pieces)
+            InitializeMovable(Owner, OwnerData);
+            InitializeRotatable(Owner, OwnerData);
+            GatherSiblings();
+        }
+        protected override void Restart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData)
+        {
+        }
+
+        private void GatherSiblings()
+        {
+            foreach (InteractablePiece otherPiece in Owner.Master.Pieces)
             {
-                if (otherPiece == owner)
+                if (otherPiece == Owner)
                 {
                     continue;
                 }
+
                 InteractablePieceData otherPieceData = otherPiece.Data as InteractablePieceData;
+                int index = otherPieceData.modifiers.FindIndex(x => x is SiblingModifier);
+                if (index == -1)
+                {
+                    continue;
+                }
+
+                SiblingModifier sibling = otherPieceData.modifiers[index] as SiblingModifier;
+                if (sibling.siblingIndex != this.siblingIndex)
+                {
+                    continue;
+                }
+
                 foreach (Modifier otherPieceModifier in otherPieceData.modifiers)
                 {
                     if (otherPieceModifier is MovableModifier movable)

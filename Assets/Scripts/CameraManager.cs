@@ -75,7 +75,11 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
+#if UNITY_EDITOR
+            Cursor.lockState = CursorLockMode.None;
+#else
             Cursor.lockState = CursorLockMode.Confined;
+#endif
             Cursor.visible = false;
         }
     }

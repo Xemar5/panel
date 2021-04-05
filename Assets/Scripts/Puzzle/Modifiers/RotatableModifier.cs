@@ -19,7 +19,6 @@ public class RotatableModifier : Modifier
     [SerializeField]
     private Quaternion rotationStep = Quaternion.Euler(0, 90, 0);
 
-    private InteractablePiece owner;
     private RotatableModifierRotator rotator;
 
     public Vector3 LocalPosition
@@ -39,14 +38,24 @@ public class RotatableModifier : Modifier
     public int ColorIndex => colorIndex;
     public Quaternion RotationStep => rotationStep;
 
-    public override void Initialize(InteractablePiece owner)
+    protected override void Initialize()
     {
-        base.Initialize(owner);
-        this.owner = owner;
-        rotator = Instantiate(ModifierComponents.Instance.rotatableModifierRotatorPrefab, owner.transform, false);
-        rotator.Initialize(owner, this);
+        rotator = Instantiate(ModifierComponents.Instance.rotatableModifierRotatorPrefab, Owner.transform, false);
+        rotator.Initialize(Owner, this);
         rotator.transform.localPosition = offset;
         rotator.OnClicked += Rotator_OnClicked;
+    }
+    protected override void Restart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData)
+    {
+        int length = previousPieceData.occupiedSpaceIndices.Length;
+        for (int i = 0; i < length; i++)
+        {
+            Owner.Master.Spaces[previousPieceData.occupiedSpaceIndices[i]].Unoccupy(Owner);
+        }
+        for (int i = 0; i < length; i++)
+        {
+            Owner.Master.Spaces[restartedPieceData.occupiedSpaceIndices[i]].Occupy(Owner);
+        }
     }
 
     private void Rotator_OnClicked(RotatableModifierRotator obj)
@@ -61,27 +70,27 @@ public class RotatableModifier : Modifier
     {
         Rotate(rotationStep);
 
-        InteractablePieceData data = owner.Data as InteractablePieceData;
-        float sqrRadius = owner.Master.CellAbsoluteRadius * owner.Master.CellAbsoluteRadius;
+        InteractablePieceData data = Owner.Data as InteractablePieceData;
+        float sqrRadius = Owner.Master.CellAbsoluteRadius * Owner.Master.CellAbsoluteRadius;
         int length = data.occupiedSpaceIndices.Length;
         int[] newSpaces = new int[length];
         bool allBodiesValid = true;
         for (int i = 0; i < length; i++)
         {
-            Vector3 bodyPosition = owner.GetBodyPositionInPuzzle(i);
+            Vector3 bodyPosition = Owner.GetBodyPositionInPuzzle(i);
             int foundSpace = -1;
-            for (int j = 0; j < owner.Master.Spaces.Count; j++)
+            for (int j = 0; j < Owner.Master.Spaces.Count; j++)
             {
-                float sqrDistance = Utils.SqrDistance(owner.Master.Spaces[j].transform.localPosition, bodyPosition);
+                float sqrDistance = Utils.SqrDistance(Owner.Master.Spaces[j].transform.localPosition, bodyPosition);
                 if (sqrDistance >= sqrRadius)
                 {
                     continue;
                 }
 
-                bool isSpaceOccupied = owner.Master.Spaces[j].IsOccupied();
-                foreach (InteractablePiece piece in owner.Master.Spaces[j].OccupyingPieces)
+                bool isSpaceOccupied = Owner.Master.Spaces[j].IsOccupied();
+                foreach (InteractablePiece piece in Owner.Master.Spaces[j].OccupyingPieces)
                 {
-                    if (piece == owner)
+                    if (piece == Owner)
                     {
                         /// Space occupied by the owner
                         isSpaceOccupied = false;
@@ -130,21 +139,21 @@ public class RotatableModifier : Modifier
         int length = newSpaces.Length;
         for (int i = 0; i < length; i++)
         {
-            owner.Master.Spaces[data.occupiedSpaceIndices[i]].Unoccupy(owner);
+            Owner.Master.Spaces[data.occupiedSpaceIndices[i]].Unoccupy(Owner);
         }
         for (int i = 0; i < length; i++)
         {
-            owner.Master.Spaces[newSpaces[i]].Occupy(owner);
+            Owner.Master.Spaces[newSpaces[i]].Occupy(Owner);
         }
         data.occupiedSpaceIndices = newSpaces;
 
-        owner.Master.RegisterMove(owner);
+        Owner.Master.RegisterMove();
     }
 
     private void Rotate(Quaternion rotationStep)
     {
-        owner.transform.localPosition += owner.transform.localRotation * offset;
-        owner.transform.localRotation *= rotationStep;
-        owner.transform.localPosition -= owner.transform.localRotation * offset;
+        Owner.transform.localPosition += Owner.transform.localRotation * offset;
+        Owner.transform.localRotation *= rotationStep;
+        Owner.transform.localPosition -= Owner.transform.localRotation * offset;
     }
 }

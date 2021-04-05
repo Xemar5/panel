@@ -34,5 +34,11 @@ public class DominoModifier : Modifier
 
     public List<Socket> sockets = new List<Socket>();
 
+    protected override void Initialize()
+    {
+    }
 
+    protected override void Restart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData)
+    {
+    }
 }

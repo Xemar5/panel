@@ -36,6 +36,13 @@ public abstract class Piece : MonoBehaviour
     {
         Master = master;
     }
+    public void Restart()
+    {
+        PieceData restarted = Instantiate(data);
+        Restart(restarted);
+        Load(runtimeData);
+    }
+    protected abstract void Restart(PieceData restarted);
 
     public abstract PieceData CreateData();
     public virtual void Save(PieceData pieceData)
@@ -49,12 +56,7 @@ public abstract class Piece : MonoBehaviour
         transform.localRotation = pieceData.localRotation;
     }
 
-    public void ResetToStartingValues()
-    {
-        Load(data);
-    }
-
-
+    
 #if UNITY_EDITOR
     public void SetData(PieceData data) => this.data = data;
 #endif

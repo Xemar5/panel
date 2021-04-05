@@ -78,7 +78,7 @@ public partial class Puzzle : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             ResetPuzzle();
         }
@@ -92,9 +92,10 @@ public partial class Puzzle : MonoBehaviour
             pieces[i].Initialize(this);
         }
         conditionSets.InitializeConditions(this);
+        RegisterMove();
     }
 
-    public void RegisterMove(Piece sender)
+    public void RegisterMove()
     {
         bool isAnyGroupSatisfied = false;
         for (int i = 0; i < conditionSets.ConditionGroups.Count; i++)
@@ -117,8 +118,9 @@ public partial class Puzzle : MonoBehaviour
         for (int i = 0; i < pieces.Count; i++)
         {
             Piece piece = pieces[i];
-            piece.ResetToStartingValues();
+            piece.Restart();
         }
+        RegisterMove();
     }
 
     private bool IsDataNull() => data == null;

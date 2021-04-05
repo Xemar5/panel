@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 public class ColoredModifier : Modifier, IColored
@@ -7,6 +8,9 @@ public class ColoredModifier : Modifier, IColored
     [HideInInlineEditors]
     [SerializeField]
     private int colorIndex;
+
+    [NonSerialized]
+    private Renderer[] renderers = null;
 
     [ShowInInlineEditors]
     [HideLabel]
@@ -17,25 +21,39 @@ public class ColoredModifier : Modifier, IColored
         get => colorIndex;
         set => colorIndex = value;
     }
-
-
-    public override void Initialize(InteractablePiece owner)
+    public Renderer[] Renderers
     {
-        Renderer[] renderers = owner.GetComponentsInChildren<Renderer>();
-        for (int i = 0; i < renderers.Length; i++)
+        get
         {
-            Renderer renderer = renderers[i];
-            if (colorIndex < 0 || colorIndex >= owner.Master.Palette.Count)
+            if (renderers == null)
             {
-                renderer.material.color = Color.magenta;
+                renderers = Owner.GetComponentsInChildren<Renderer>();
             }
-            else
-            {
-                renderer.material.color = owner.Master.Palette[colorIndex].color;
-            }
+            return renderers;
         }
-
     }
+    public Color DefaultColor => colorIndex < 0 || colorIndex >= Owner.Master.Palette.Count
+            ? Color.magenta
+            : Owner.Master.Palette[colorIndex].color;
+
+    protected override void Initialize()
+    {
+        SetAllRenderersColor(DefaultColor);
+    }
+    protected override void Restart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData)
+    {
+        SetAllRenderersColor(DefaultColor);
+    }
+
+    private void SetAllRenderersColor(Color color)
+    {
+        for (int i = 0; i < Renderers.Length; i++)
+        {
+            Renderers[i].material.color = color;
+        }
+    }
+
+
 #if UNITY_EDITOR
     [ShowInInspector]
     [HideLabel]
