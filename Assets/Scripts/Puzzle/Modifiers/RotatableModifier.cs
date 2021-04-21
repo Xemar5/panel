@@ -8,6 +8,7 @@ using UnityEngine;
 public class RotatableModifier : Modifier
 {
     public event Action<RotatableModifier, Quaternion> OnActionRegistered;
+    public event Action<RotatableModifier, int[], int[]> OnRotationPerformed;
     
     [HideInInspector]
     [SerializeField]
@@ -145,7 +146,9 @@ public class RotatableModifier : Modifier
         {
             Owner.Master.Spaces[newSpaces[i]].Occupy(Owner);
         }
+        int[] previousSpaces = data.occupiedSpaceIndices;
         data.occupiedSpaceIndices = newSpaces;
+        OnRotationPerformed?.Invoke(this, previousSpaces, newSpaces);
 
         Owner.Master.RegisterMove();
     }

@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ddf149093a9f14091721c89e4cd47c, type: 3}
   m_Name: Movable.L - RotatableModifier
   m_EditorClassIdentifier: 
-  offset: {x: 0.49999997, y: 0, z: 0.50000006}
+  offset: {x: -0.00000008742278, y: 0, z: 1}
   isClockwise: 1
   colorIndex: 1
   rotationStep: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8522660002a48a42a4005fb2609d39e, type: 3}
-  m_Name: PuzzleData
+  m_Name: PuzzleData1
   m_EditorClassIdentifier: 
   cellRadius: 1
   minDragDelta: 5

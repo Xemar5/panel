@@ -123,6 +123,54 @@ public partial class Puzzle : MonoBehaviour
         RegisterMove();
     }
 
+    public Piece AddPiece(Piece piecePrefab, PieceData pieceData)
+    {
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            Debug.Log($"Add Piece only usable in play mode.");
+            return null;
+        }
+#endif
+        Piece piece = Instantiate(piecePrefab);
+        piece.transform.SetParent(this.transform, false);
+        piece.SetData(pieceData);
+        if (piece is InteractablePiece interactablePiece)
+        {
+            pieces.Add(interactablePiece);
+        }
+        else if (piece is SpacePiece spacePiece)
+        {
+            spaces.Add(spacePiece);
+        }
+        piece.Load(pieceData);
+        piece.Initialize(this);
+        return piece;
+    }
+    public void RemovePiece(Piece piece)
+    {
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            Debug.Log($"Remove Piece only usable in play mode.");
+            return;
+        }
+#endif
+        if (piece is InteractablePiece interactablePiece)
+        {
+            InteractablePieceData data = piece.Data as InteractablePieceData;
+            for (int i = 0; i < data.occupiedSpaceIndices.Length; i++)
+            {
+                spaces[data.occupiedSpaceIndices[i]].Unoccupy(interactablePiece);
+            }
+            pieces.Remove(interactablePiece);
+        }
+        else if (piece is SpacePiece spacePiece)
+        {
+            spaces.Remove(spacePiece);
+        }
+    }
+
     private bool IsDataNull() => data == null;
 
 #if UNITY_EDITOR

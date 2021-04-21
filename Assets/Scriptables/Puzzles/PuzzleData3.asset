@@ -221,7 +221,9 @@ MonoBehaviour:
   pieces:
   - {fileID: 1287528288846847354}
   - {fileID: -3503583788076173249}
-  conditionGroups: []
+  conditionGroups:
+  - conditionDatas:
+    - {fileID: 6287428511865411790}
   palette:
   - color: {r: 0.4236383, g: 0.754717, b: 0.7121082, a: 1}
   - color: {r: 0.5756527, g: 0.5446778, b: 0.754717, a: 1}
@@ -327,6 +329,21 @@ MonoBehaviour:
   isClockwise: 1
   colorIndex: 1
   rotationStep: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+--- !u!114 &6287428511865411790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a1c9758e751464ab132d0146fef98e, type: 3}
+  m_Name: DominoCondition
+  m_EditorClassIdentifier: 
+  conditionIdentifier: Domino
+  conditionIndex: 0
+  values: 02000000
 --- !u!114 &6529433923397436245
 MonoBehaviour:
   m_ObjectHideFlags: 0

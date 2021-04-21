@@ -55,6 +55,7 @@ public class PieceDatabase : ScriptableObject
     }
 
 #if UNITY_EDITOR
+    public const string KeysString = "@" + nameof(PieceDatabase) + "." + nameof(PieceDatabase.Instance) + "." + nameof(PieceDatabase.Instance.PieceDictionary) + "." + nameof(PieceDatabase.Instance.PieceDictionary.Keys);
     public IReadOnlyList<Piece> OrderedPieceMenuList
     {
         get

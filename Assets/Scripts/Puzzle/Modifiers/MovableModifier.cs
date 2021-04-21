@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 public class MovableModifier : Modifier
 {
     public event Action<MovableModifier, int> OnActionRegistered;
+    public event Action<MovableModifier, int[], int[]> OnMovePerformed;
 
     public float minDrag = 5;
     [ReadOnly, HideInInlineEditors]
@@ -138,8 +139,10 @@ public class MovableModifier : Modifier
             Owner.Master.Spaces[spacesToMove[i]].Occupy(Owner);
         }
         Owner.transform.localPosition = Owner.Master.Spaces[spacesToMove[0]].transform.localPosition;
+        int[] previousSpaces = OwnerData.occupiedSpaceIndices;
         OwnerData.occupiedSpaceIndices = spacesToMove;
         Debug.Log($"Movable piece {name} moved (pieces spaces: {spacesToMove.Length})");
+        OnMovePerformed?.Invoke(this, previousSpaces, spacesToMove);
 
         Owner.Master.RegisterMove();
         return true;

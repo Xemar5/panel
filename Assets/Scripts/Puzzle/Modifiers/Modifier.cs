@@ -14,11 +14,11 @@ public abstract class Modifier : ScriptableObject
         Master = owner.Master;
         Initialize();
     }
-    public void OnRestart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData)
+    public void OnRestart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier restartedModifierData)
     {
-        Restart(previousPieceData, restartedPieceData, previousModifierData);
+        Restart(previousPieceData, restartedPieceData, restartedModifierData);
     }
 
     protected abstract void Initialize();
-    protected abstract void Restart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData);
+    protected abstract void Restart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier restartedModifierData);
 }

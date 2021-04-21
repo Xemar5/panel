@@ -38,6 +38,8 @@ public class ColoredModifier : Modifier, IColored
 
     protected override void Initialize()
     {
+        /// Nulling because if scriptable object is clonned, the array will reference previous renderers.
+        renderers = null;
         SetAllRenderersColor(DefaultColor);
     }
     protected override void Restart(InteractablePieceData previousPieceData, InteractablePieceData restartedPieceData, Modifier previousModifierData)

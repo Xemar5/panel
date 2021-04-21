@@ -1,0 +1,471 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9117815039579351804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4908fd223a54df48b03015d2b6e3761, type: 3}
+  m_Name: Movable.1x1 - MovableModifier
+  m_EditorClassIdentifier: 
+  minDrag: 5
+  directionIndexConstraints: 
+--- !u!114 &-9019674534159171232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 10
+  localPosition: {x: -2, y: 0, z: -1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: ffffffff020000000b000000ffffffff
+--- !u!114 &-8520004108233460676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 2
+  localPosition: {x: -1, y: 0, z: -1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 0a0000000300000001000000ffffffff
+--- !u!114 &-8279291698875445546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 1
+  localPosition: {x: -1, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 0b000000000000000c00000002000000
+--- !u!114 &-8226124595797934332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 4
+  localPosition: {x: 1, y: 0, z: -1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 030000000e00000005000000ffffffff
+--- !u!114 &-8184653432373036194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 3
+  localPosition: {x: 0, y: 0, z: -1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 020000000400000000000000ffffffff
+--- !u!114 &-7493771485499003124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 5
+  localPosition: {x: 1, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 00000000060000000800000004000000
+--- !u!114 &-5103798043122707391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 0
+  localPosition: {x: 0, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 01000000050000000900000003000000
+--- !u!114 &-3046556029986771797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 11
+  localPosition: {x: -2, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: ffffffff010000000d0000000a000000
+--- !u!114 &-2762087579213683800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d65fe4d70f6964097092815949bbd0, type: 3}
+  m_Name: Movable.1x1
+  m_EditorClassIdentifier: 
+  pieceIdentifier: Simple/1x1
+  pieceIndex: 1
+  localPosition: {x: -1, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  modifiers:
+  - {fileID: -1973495522808842715}
+  - {fileID: 4785559347927753511}
+  occupiedSpaceIndices: 01000000
+--- !u!114 &-2104741552146158860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a905995a28d0cd04685a2c4c51f717d2, type: 3}
+  m_Name: OccupiedCondition
+  m_EditorClassIdentifier: 
+  conditionIdentifier: Occupied
+  conditionIndex: 1
+  spaceIndices: 040000000e000000
+  colorIndex: 1
+--- !u!114 &-1973495522808842715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4908fd223a54df48b03015d2b6e3761, type: 3}
+  m_Name: Movable.1x1 - MovableModifier
+  m_EditorClassIdentifier: 
+  minDrag: 5
+  directionIndexConstraints: 
+--- !u!114 &-1058623328100651558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 12
+  localPosition: {x: -1, y: 0, z: 1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 0d00000009000000ffffffff01000000
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8522660002a48a42a4005fb2609d39e, type: 3}
+  m_Name: PuzzleData6
+  m_EditorClassIdentifier: 
+  cellRadius: 1
+  minDragDelta: 5
+  spaces:
+  - {fileID: -5103798043122707391}
+  - {fileID: -8279291698875445546}
+  - {fileID: -8520004108233460676}
+  - {fileID: -8184653432373036194}
+  - {fileID: -8226124595797934332}
+  - {fileID: -7493771485499003124}
+  - {fileID: 6343431399978561504}
+  - {fileID: 2085522445172381967}
+  - {fileID: 5498860305476516131}
+  - {fileID: 612072433025238304}
+  - {fileID: -9019674534159171232}
+  - {fileID: -3046556029986771797}
+  - {fileID: -1058623328100651558}
+  - {fileID: 2248076483090530461}
+  - {fileID: 5221829557157943083}
+  pieces:
+  - {fileID: 7125548653457717489}
+  - {fileID: -2762087579213683800}
+  - {fileID: 4184524860071153945}
+  conditionGroups:
+  - conditionDatas:
+    - {fileID: 7253871664256123170}
+    - {fileID: -2104741552146158860}
+  palette:
+  - color: {r: 0.67562807, g: 0.6886792, b: 0.26312745, a: 1}
+  - color: {r: 0.8867924, g: 0.38065147, b: 0.38065147, a: 1}
+--- !u!114 &78802434251097790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0b5d784ac85fb45a510c92c5fbec8b, type: 3}
+  m_Name: Movable.1x2 - ColoredModifier
+  m_EditorClassIdentifier: 
+  colorIndex: 1
+--- !u!114 &612072433025238304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 9
+  localPosition: {x: 0, y: 0, z: 1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 0c00000008000000ffffffff00000000
+--- !u!114 &2085522445172381967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 7
+  localPosition: {x: 2, y: 0, z: 1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 08000000ffffffffffffffff06000000
+--- !u!114 &2248076483090530461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 13
+  localPosition: {x: -2, y: 0, z: 1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: ffffffff0c000000ffffffff0b000000
+--- !u!114 &3010668417742492462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4908fd223a54df48b03015d2b6e3761, type: 3}
+  m_Name: Movable.1x2 - MovableModifier
+  m_EditorClassIdentifier: 
+  minDrag: 5
+  directionIndexConstraints: 
+--- !u!114 &4184524860071153945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d65fe4d70f6964097092815949bbd0, type: 3}
+  m_Name: Movable.1x2
+  m_EditorClassIdentifier: 
+  pieceIdentifier: Simple/1x2
+  pieceIndex: 2
+  localPosition: {x: 0, y: 0, z: 1}
+  localRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  modifiers:
+  - {fileID: 3010668417742492462}
+  - {fileID: 78802434251097790}
+  occupiedSpaceIndices: 0900000008000000
+--- !u!114 &4785559347927753511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0b5d784ac85fb45a510c92c5fbec8b, type: 3}
+  m_Name: Movable.1x1 - ColoredModifier
+  m_EditorClassIdentifier: 
+  colorIndex: 0
+--- !u!114 &5221829557157943083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 14
+  localPosition: {x: 2, y: 0, z: -1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 04000000ffffffff06000000ffffffff
+--- !u!114 &5498860305476516131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 8
+  localPosition: {x: 1, y: 0, z: 1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 0900000007000000ffffffff05000000
+--- !u!114 &6343431399978561504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889f4beec9200634eb0dc7f480fdf5a8, type: 3}
+  m_Name: Space
+  m_EditorClassIdentifier: 
+  pieceIdentifier: 
+  pieceIndex: 6
+  localPosition: {x: 2, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  adjacentSpaceIndices: 05000000ffffffff070000000e000000
+--- !u!114 &6783333312081181395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0b5d784ac85fb45a510c92c5fbec8b, type: 3}
+  m_Name: Movable.1x1 - ColoredModifier
+  m_EditorClassIdentifier: 
+  colorIndex: 0
+--- !u!114 &7125548653457717489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d65fe4d70f6964097092815949bbd0, type: 3}
+  m_Name: Movable.1x1
+  m_EditorClassIdentifier: 
+  pieceIdentifier: Simple/1x1
+  pieceIndex: 0
+  localPosition: {x: -1, y: 0, z: -1}
+  localRotation: {x: 0, y: 0, z: 0, w: 1}
+  modifiers:
+  - {fileID: -9117815039579351804}
+  - {fileID: 6783333312081181395}
+  occupiedSpaceIndices: 02000000
+--- !u!114 &7253871664256123170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a905995a28d0cd04685a2c4c51f717d2, type: 3}
+  m_Name: OccupiedCondition
+  m_EditorClassIdentifier: 
+  conditionIdentifier: Occupied
+  conditionIndex: 0
+  spaceIndices: 0800000009000000
+  colorIndex: 0

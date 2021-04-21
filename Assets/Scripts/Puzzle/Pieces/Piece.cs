@@ -56,8 +56,17 @@ public abstract class Piece : MonoBehaviour
         transform.localRotation = pieceData.localRotation;
     }
 
-    
-#if UNITY_EDITOR
-    public void SetData(PieceData data) => this.data = data;
-#endif
+
+    public void SetData(PieceData data)
+    {
+        if (!Application.isPlaying)
+        {
+            this.data = data;
+        }
+        else
+        {
+            this.data = data;
+            this.runtimeData = data;
+        }
+    }
 }

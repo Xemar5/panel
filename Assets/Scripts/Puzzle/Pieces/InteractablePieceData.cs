@@ -9,7 +9,7 @@ public class InteractablePieceData : PieceData, ISpaceReferencer
     [ReadOnly]
     public List<Modifier> modifiers = new List<Modifier>();
     [ReadOnly]
-    public int[] occupiedSpaceIndices;
+    public int[] occupiedSpaceIndices = new int[0];
 
 #if UNITY_EDITOR
     public void OnSpaceRemoved(int removedSpaceIndex)
